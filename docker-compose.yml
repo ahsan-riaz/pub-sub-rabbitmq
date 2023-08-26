@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  web:
+    image: botchecker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    links:
+      - rabbitmq
+    volumes:
+      - ./:/usr/src/app
+
+  rabbitmq:
+    image: "rabbitmq:management"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
