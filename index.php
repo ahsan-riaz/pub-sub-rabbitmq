@@ -2,7 +2,6 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-// use App\App;
 use Dotenv\Dotenv;
 use App\App;
 use App\Connections\RabbitMQConnectionManager;

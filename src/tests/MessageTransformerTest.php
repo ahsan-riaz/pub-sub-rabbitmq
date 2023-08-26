@@ -33,7 +33,6 @@ class MessageTransformerTest extends TestCase
         $isoDateString = $date->format('Y-m-d\TH:i:s.u\Z');
         $this->assertEquals($isoDateString, $outputMessage['timestamp']);
 
-        // Since "thank-you" is in the URL, this should be a conversion
         $this->assertTrue($outputMessage['isConversion']);
     }
 
