@@ -7,6 +7,23 @@ This solution processes incoming messages, checks if an IP address belongs to a 
 - Docker
 - Docker Compose
 
+## Tech Stack
+
+- **[PHP](https://www.php.net/)**: The core language used for the backend.
+- **[RabbitMQ](https://www.rabbitmq.com/)**: Advanced message-queueing software.
+- **[Docker](https://www.docker.com/)**: Platform to containerize the application and its dependencies.
+
+## Dependencies
+
+### Main Dependencies:
+
+- **[php-amqplib](https://packagist.org/packages/php-amqplib/php-amqplib)**: A PHP client library for AMQP, used for communicating with RabbitMQ.
+- **[phpdotenv](https://packagist.org/packages/vlucas/phpdotenv)**: Loads environment variables from a `.env` file.
+
+### Development Dependencies:
+
+- **[PHPUnit](https://packagist.org/packages/phpunit/phpunit)**: The PHP testing framework.
+
 ## Installation
 
 1. Clone the repository:
