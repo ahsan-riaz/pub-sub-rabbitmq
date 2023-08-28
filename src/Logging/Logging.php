@@ -23,7 +23,7 @@ class JsonFileLogger {
 
     public function logException(RuntimeException $e) : void 
     {
-        throw new \RuntimeException(`Failed to append file ${e}`);
+        throw new \RuntimeException("Failed to append file {$e}");
     }
 
     private function readFromFile(): array
