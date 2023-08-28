@@ -5,6 +5,7 @@ namespace App\Connections;
 use App\Handlers\MessageHandlerInterface;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use App\Logging\Logging;
 
 class RabbitMQConnectionManager implements ConnectionManagerInterface
 {
@@ -12,7 +13,9 @@ class RabbitMQConnectionManager implements ConnectionManagerInterface
     private $channel;
     private $processedData = [];
 
-    public function __construct(private MessageHandlerInterface $handler = new MessageHandlerInterface()) 
+    public function __construct(private MessageHandlerInterface $handler = new MessageHandlerInterface(),
+    private Logging $log = new Logging()
+    ) 
     {
     }
 
@@ -44,12 +47,13 @@ class RabbitMQConnectionManager implements ConnectionManagerInterface
                 $processedData = $this->getProcessedData();
                 if ($processedData) {
 
-                    // store transformed message in local json file
-                    $jsonFilePath = dirname(__DIR__, 1).'/uploads/'.$_ENV['JSON_FILE'];
-                    $jsonData = json_decode(file_get_contents($jsonFilePath), true) ?? [];
-                    $jsonData[] = $processedData;
-                    file_put_contents($jsonFilePath, json_encode($jsonData, JSON_PRETTY_PRINT));
 
+                    try {
+                        $this->log->appendToLogFile($processedData);
+                    } catch (\Exception $e) {
+                        $this->log->logException($e);
+                    }
+                    
                     // publish the processed data
                     $this->publish($processedData);
                 }
