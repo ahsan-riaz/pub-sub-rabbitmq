@@ -3,9 +3,9 @@
 namespace App\Connections;
 
 use App\Handlers\MessageHandlerInterface;
+use App\Logging\FileLogger;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
-use App\Logging\Logging;
 
 class RabbitMQConnectionManager implements ConnectionManagerInterface
 {
@@ -14,7 +14,7 @@ class RabbitMQConnectionManager implements ConnectionManagerInterface
     private $processedData = [];
 
     public function __construct(private MessageHandlerInterface $handler = new MessageHandlerInterface(),
-    private Logging $log = new Logging()
+    private FileLogger $log = new FileLogger("log.json")
     ) 
     {
     }
@@ -46,7 +46,6 @@ class RabbitMQConnectionManager implements ConnectionManagerInterface
 
                 $processedData = $this->getProcessedData();
                 if ($processedData) {
-
 
                     try {
                         $this->log->appendToLogFile($processedData);

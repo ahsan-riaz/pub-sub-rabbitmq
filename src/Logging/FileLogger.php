@@ -2,10 +2,9 @@
 
 namespace App\Logging;
 
-use Exception;
 use RuntimeException;
 
-class JsonFileLogger {
+class FileLogger {
 
     private $filePath;
 
